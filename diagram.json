@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "author": "Ross - Smart Factory Energy Monitoring",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": -4.76, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "potVoltage", "top": -135.7, "left": -278.6, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "potCurrent", "top": 123.5, "left": -249.8, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "btnMachine", "top": -22.6, "left": 211.2, "attrs": { "color": "blue" } },
+    { "type": "wokwi-pushbutton", "id": "btnReset", "top": 140.6, "left": 211.2, "attrs": { "color": "red" } },
+    { "type": "wokwi-rgb-led", "id": "rgb1", "top": 253.6, "left": 39.5, "attrs": { "common": "cathode" } },
+    { "type": "wokwi-lcd1602", "id": "lcd1", "top": -233.6, "left": 197.6, "attrs": { "pins": "i2c" } }
+  ],
+  "connections": [
+    ["esp:TX", "$serialMonitor:RX", "", []],
+    ["esp:RX", "$serialMonitor:TX", "", []],
+
+    ["esp:3V3", "potVoltage:VCC", "red", []],
+    ["esp:3V3", "potCurrent:VCC", "red", []],
+    ["esp:GND.1", "potVoltage:GND", "black", []],
+    ["esp:GND.1", "potCurrent:GND", "black", []],
+    ["potVoltage:SIG", "esp:34", "green", []],
+    ["potCurrent:SIG", "esp:35", "green", []],
+
+    ["esp:5", "btnMachine:1.r", "green", []],
+    ["esp:GND.1", "btnMachine:1.l", "black", []],
+
+    ["esp:4", "btnReset:1.r", "green", []],
+    ["esp:GND.1", "btnReset:1.l", "black", []],
+
+    ["rgb1:R", "esp:25", "red", []],
+    ["rgb1:B", "esp:27", "blue", []],
+    ["rgb1:COM", "esp:GND.1", "black", []],
+
+    ["lcd1:VCC", "esp:5V", "red", []],
+    ["lcd1:GND", "esp:GND.1", "black", []],
+    ["lcd1:SDA", "esp:21", "green", []],
+    ["lcd1:SCL", "esp:22", "green", []]
+  ],
+  "dependencies": {}
+}
